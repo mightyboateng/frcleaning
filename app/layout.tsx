@@ -5,9 +5,9 @@ import "./globals.css"
 
 
 export const metadata: Metadata = {
-  title: "Opus – The Editorial Portfolio Platform",
+  title: "FR Cleaning",
   description:
-    "A website builder designed for writers, photographers, and architects who need a narrative-driven portfolio.",
+    " FR Cleaning is a cleaning service company that provides top-notch cleaning services to residential and commercial clients. We are committed to delivering exceptional results and ensuring customer satisfaction.",
   generator: "v0.app",
   icons: {
     icon: [
