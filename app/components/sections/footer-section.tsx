@@ -6,8 +6,8 @@ import { ArrowRight } from "lucide-react"
 
 const footerLinks = [
   { label: "Services", href: "#" },
-  { label: "Pricing", href: "#" },
-  { label: "About", href: "#" },
+  // { label: "Pricing", href: "#" },
+  // { label: "About", href: "#" },
   { label: "Contact", href: "#" },
 ]
 
@@ -26,12 +26,12 @@ export function FooterSection() {
           {/* Logo and links */}
           <div>
             <motion.h2
-              className="text-6xl md:text-8xl font-serif text-foreground"
+              className="text-6xl md:text-8xl max-w-4xl font-serif text-foreground"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              FR CLEANING.
+              Total Care Cleaning Service
             </motion.h2>
 
             <nav className="flex flex-wrap gap-6 mt-8">
@@ -75,17 +75,27 @@ export function FooterSection() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-sm">© 2025 FR Cleaning. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm">
+            © 2026 Total Care Cleaning Service. All rights reserved.
+          </p>
           <div className="flex gap-6">
-            <a href="#" className="text-muted-foreground hover:text-foreground text-sm" data-clickable>
+            <a
+              href="#"
+              className="text-muted-foreground hover:text-foreground text-sm"
+              data-clickable
+            >
               Privacy
             </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground text-sm" data-clickable>
+            <a
+              href="#"
+              className="text-muted-foreground hover:text-foreground text-sm"
+              data-clickable
+            >
               Terms
             </a>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
