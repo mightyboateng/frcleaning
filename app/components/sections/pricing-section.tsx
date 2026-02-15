@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import ContactForm from "../contact-form";
+import BookDialog from "../book-dialog";
 
 const plans = [
   {
@@ -31,7 +32,7 @@ const plans = [
 export function PricingSection() {
   return (
     <section className="bg-secondary px-6 py-24">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -89,21 +90,28 @@ export function PricingSection() {
                 ))}
               </ul>
 
-              <button
-                className={`w-full mt-8 py-3 px-6 rounded-lg font-medium transition-colors ${
-                  plan.popular
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "bg-secondary border border-primary text-foreground hover:bg-accent/30"
-                }`}
-              >
-                Book
-              </button>
+              <BookDialog
+                dialogTriggerChild={
+                  <div
+                    suppressHydrationWarning={false}
+                    className={`w-full mt-8 py-3 px-6 rounded-lg font-medium transition-colors ${
+                      plan.popular
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                        : "bg-secondary border border-primary text-foreground hover:bg-accent/30"
+                    }`}
+                  >
+                    Book
+                  </div>
+                }
+                serviceType={plan.name}
+                serviceDescription={plan.description}
+              />
             </motion.div>
           ))}
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto mt-20">
+      <div className="max-w-4xl mx-auto mt-20">
         <ContactForm
           title="Contact Us"
           description="Have questions or need a custom quote? Get in touch with us."

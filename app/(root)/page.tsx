@@ -17,7 +17,7 @@ export default function Home() {
         <CustomCursor />
         <HeroSection />
         <ManifestoSection />
-        <FeaturesSection />
+        {/* <FeaturesSection /> */}
         <ShowcaseSection />
         <CarouselSection />
         <InsightsSection />

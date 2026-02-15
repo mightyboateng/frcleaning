@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 
@@ -31,6 +32,7 @@ type QuoteFormProps = {
   successMessage?: string;
   errorMessage?: string;
   onSubmit?: (form: QuoteFormFields) => Promise<void> | void;
+  contactType?: "contact" | "book";
 };
 
 const defaultOptions = [
@@ -59,6 +61,7 @@ const ContactForm = ({
   successMessage = "Thanks — we'll contact you soon with a custom quote.",
   errorMessage = "Please provide a valid name and email so we can follow up.",
   onSubmit,
+  contactType = "contact",
 }: QuoteFormProps) => {
   const [form, setForm] = useState<QuoteFormFields>(defaultFormState);
   const [status, setStatus] = useState<
@@ -150,7 +153,12 @@ const ContactForm = ({
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div
+          className={cn(
+            "grid gap-4 md:grid-cols-2",
+            contactType === "book" && "md:grid-cols-1",
+          )}
+        >
           <div className="space-y-2">
             <Label htmlFor="quote-phone">Phone (optional)</Label>
             <Input
@@ -161,26 +169,28 @@ const ContactForm = ({
               placeholder="(416) 555-1234"
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="quote-service">Service type</Label>
-            <Select
-              value={form.service}
-              onValueChange={(value) =>
-                setForm((prev) => ({ ...prev, service: value }))
-              }
-            >
-              <SelectTrigger id="quote-service">
-                <SelectValue placeholder="Select a service" />
-              </SelectTrigger>
-              <SelectContent>
-                {serviceOptions.map((option) => (
-                  <SelectItem value={option} key={option}>
-                    {option}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {contactType === "book" && (
+            <div className="space-y-2">
+              <Label htmlFor="quote-service">Service type</Label>
+              <Select
+                value={form.service}
+                onValueChange={(value) =>
+                  setForm((prev) => ({ ...prev, service: value }))
+                }
+              >
+                <SelectTrigger id="quote-service">
+                  <SelectValue placeholder="Select a service" />
+                </SelectTrigger>
+                <SelectContent>
+                  {serviceOptions.map((option) => (
+                    <SelectItem value={option} key={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
         </div>
 
         <div className="space-y-2">

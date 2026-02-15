@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     await nodemailerTransporter.sendMail({
       from: process.env.WEBSITE_MAIL,
       to: process.env.WEBSITE_MAIL,
-      subject: "Booking Submission",
+      subject: `${name} is contacting you`,
       html: websiteContactTemplate({
         name,
         email,
