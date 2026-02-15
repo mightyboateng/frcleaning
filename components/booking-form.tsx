@@ -3,13 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -32,7 +25,7 @@ type QuoteFormProps = {
   successMessage?: string;
   errorMessage?: string;
   onSubmit?: (form: QuoteFormFields) => Promise<void> | void;
-  contactType?: "contact" | "book";
+  serviceType: string;
 };
 
 const defaultOptions = [
@@ -52,16 +45,13 @@ const defaultFormState: QuoteFormFields = {
 
 const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
 
-const ContactForm = ({
-  submitLabel = "Request Quote",
+const BookingForm = ({
+  submitLabel = "Book Now",
   className = "",
-  title = "Tell us about your space",
-  description = "Share a few details, and our cleaning coordination team will reach out with a tailored plan and timeline.",
-  serviceOptions = defaultOptions,
   successMessage = "Thanks — we'll contact you soon with a custom quote.",
   errorMessage = "Please provide a valid name and email so we can follow up.",
   onSubmit,
-  contactType = "contact",
+  serviceType,
 }: QuoteFormProps) => {
   const [form, setForm] = useState<QuoteFormFields>(defaultFormState);
   const [status, setStatus] = useState<
@@ -87,7 +77,7 @@ const ContactForm = ({
         await Promise.resolve(onSubmit(form));
       } else {
         // Call the API route
-        const response = await fetch("/api/contact", {
+        const response = await fetch("/api/book", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -97,7 +87,7 @@ const ContactForm = ({
             email: form.email,
             phone: form.phone,
             message: form.message,
-            serviceType: form.service,
+            serviceType,
           }),
         });
 
@@ -121,14 +111,7 @@ const ContactForm = ({
       transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
       className={`w-full rounded-3xl border border-white/40 bg-white/80 p-6 shadow-2xl shadow-black/20 backdrop-blur-lg ${className}`}
     >
-      <div className="flex flex-col gap-2 sm:max-w-xl">
-        <h3 className="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
-          {title}
-        </h3>
-        <p className="text-base text-gray-600">{description}</p>
-      </div>
-
-      <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="quote-name">Full name</Label>
@@ -153,12 +136,7 @@ const ContactForm = ({
           </div>
         </div>
 
-        <div
-          className={cn(
-            "grid gap-4 md:grid-cols-2",
-            contactType === "book" && "md:grid-cols-1",
-          )}
-        >
+        <div className={cn("grid gap-4 md:grid-cols-1")}>
           <div className="space-y-2">
             <Label htmlFor="quote-phone">Phone (optional)</Label>
             <Input
@@ -169,28 +147,6 @@ const ContactForm = ({
               placeholder="(416) 555-1234"
             />
           </div>
-          {contactType === "book" && (
-            <div className="space-y-2">
-              <Label htmlFor="quote-service">Service type</Label>
-              <Select
-                value={form.service}
-                onValueChange={(value) =>
-                  setForm((prev) => ({ ...prev, service: value }))
-                }
-              >
-                <SelectTrigger id="quote-service">
-                  <SelectValue placeholder="Select a service" />
-                </SelectTrigger>
-                <SelectContent>
-                  {serviceOptions.map((option) => (
-                    <SelectItem value={option} key={option}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
         </div>
 
         <div className="space-y-2">
@@ -269,4 +225,4 @@ const ContactForm = ({
   );
 };
 
-export default ContactForm;
+export default BookingForm;

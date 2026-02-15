@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import ContactForm from "./contact-form";
+import BookingForm from "./booking-form";
 
 const BookDialog = ({
   dialogTriggerChild,
@@ -30,7 +30,7 @@ const BookDialog = ({
           <DialogDescription>{serviceDescription}</DialogDescription>
         </DialogHeader>
 
-        <ContactForm title="" description="" />
+        <BookingForm title="" description="" serviceType={serviceType} />
       </DialogContent>
     </Dialog>
   );
