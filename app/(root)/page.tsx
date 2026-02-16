@@ -14,7 +14,7 @@ export default function Home() {
     <LenisProvider>
       <main className="custom-cursor bg-background">
         <CustomCursor />
-        <HeroSection />
+        {/* <HeroSection /> */}
         <ManifestoSection />
         {/* <FeaturesSection /> */}
         <ShowcaseSection />
